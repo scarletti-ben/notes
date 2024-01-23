@@ -91,7 +91,7 @@ function convertMarkdownToHTML() {
 // Function to load and render markdown
 function loadAndRenderMarkdown() {
   // Path to your markdown file
-  const markdownFilePath = 'markdown/template.md';
+  const markdownFilePath = 'https://raw.githubusercontent.com/scarletti-ben/notes/main/markdown/template.md';
 
   // Fetch the content of the markdown file
   fetch(markdownFilePath)
