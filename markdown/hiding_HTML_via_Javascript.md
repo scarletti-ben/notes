@@ -1,6 +1,6 @@
 ---
 tags: [
-    hiding, hidden, invisible, dynamic, html, js, javascript, css, styling
+  hiding, hidden, invisible, dynamic, html, js, javascript, css, styling
 ]
 ---
 

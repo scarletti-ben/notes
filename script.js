@@ -72,3 +72,24 @@ function hideTooltip(element) {
   // Remove the title attribute to hide the tooltip
   element.title = "";
 }
+
+// Function to convert Markdown to HTML
+function convertMarkdownToHTML() {
+  // Get the Markdown content
+  var markdownContent = document.getElementById('markdownContent').innerText;
+
+  // Create a Showdown converter instance
+  var converter = new showdown.Converter();
+
+  // Convert Markdown to HTML
+  var htmlContent = converter.makeHtml(markdownContent);
+
+  // Display the HTML content
+  document.getElementById('htmlContent').innerHTML = htmlContent;
+}
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+  // Call the function when the DOM is ready
+  convertMarkdownToHTML();
+});
