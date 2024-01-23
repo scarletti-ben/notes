@@ -1,7 +1,8 @@
 // Function to filter items by tag
 function filterItems(tag) {
-  // Select all elements with the class "item"
-  const items = document.querySelectorAll(".item");
+
+  // Select all elements with the class "injection"
+  var items = document.querySelectorAll(".injection");
 
   // Iterate through each item
   items.forEach((item) => {
@@ -21,8 +22,9 @@ function filterItems(tag) {
 
 // Function to show all items
 function showAllItems() {
-  // Select all elements with the class "item"
-  const items = document.querySelectorAll(".item");
+
+  // Select all elements with the class "injection"
+  var items = document.querySelectorAll(".injection");
 
   // Iterate through each item and display it
   items.forEach((item) => {
@@ -36,8 +38,8 @@ function filterByDate() {
   const startDate = document.getElementById("startDate").value;
   const endDate = document.getElementById("endDate").value;
 
-  // Select all elements with the class "item"
-  const items = document.querySelectorAll(".item");
+  // Select all elements with the class "injection"
+  var items = document.querySelectorAll(".injection");
 
   // Iterate through each item
   items.forEach((item) => {
@@ -73,58 +75,7 @@ function hideTooltip(element) {
   element.title = "";
 }
 
-// Function to convert Markdown to HTML
-function convertMarkdownToHTML() {
-  // Get the Markdown content
-  var markdownContent = document.getElementById('markdownContent').innerText;
-
-  // Create a Showdown converter instance
-  var converter = new showdown.Converter();
-
-  // Convert Markdown to HTML
-  var htmlContent = converter.makeHtml(markdownContent);
-
-  // Display the HTML content
-  document.getElementById('htmlContent').innerHTML = htmlContent;
-}
-
-// Function to load and render markdown
-function loadAndRenderMarkdown() {
-  // Path to your markdown file
-  const markdownFilePath = 'https://raw.githubusercontent.com/scarletti-ben/notes/main/markdown/template.md';
-
-  // Fetch the content of the markdown file
-  fetch(markdownFilePath)
-      .then(response => response.text())
-      .then(markdownContent => {
-
-          // Log found markdown
-          console.log('Markdown content:', markdownContent);
-
-          // Create a Showdown converter instance
-          const converter = new showdown.Converter();
-
-          // Convert Markdown to HTML
-          const htmlContent = converter.makeHtml(markdownContent);
-
-          // Get the div where you want to insert the HTML
-          const importedDiv = document.getElementById('imported');
-
-          // Set the HTML content of the div
-          importedDiv.innerHTML = htmlContent;
-      })
-      .catch(error => {
-          console.error('Error loading and rendering markdown:', error);
-      });
-}
-
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-
-  // Call the function when the DOM is ready
-  convertMarkdownToHTML();
-
-  // Call the function to load and render markdown to <div id="imported"></div>
-  loadAndRenderMarkdown();
 
 });

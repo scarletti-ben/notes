@@ -1,4 +1,4 @@
-.item {
+.injection {
   display: inline-block;
   margin: 5px;
   padding: 10px;
@@ -6,7 +6,7 @@
   cursor: pointer;
 }
 
-.item {
+.injection {
   display: inline-block;
   margin: 5px;
   padding: 10px;
@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.item:hover::before {
+.injection:hover::before {
   content: attr(data-tags) " | " attr(data-date);
   display: block;
   position: absolute;

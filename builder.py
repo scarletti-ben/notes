@@ -1,29 +1,34 @@
 
 """ => Notes =============================================================================================
 
-Date: 23/01/2024
+Date: 24/01/2024
 Information:
     Attempt at a python based builder for a static site
     Aims to convert all .md files in ./markdown into .html files in ./html
-    
-Status: Testing
-Quality: Unknown
-Version: N/A
+    Aims to inject all .html file content into a container within index.html    
+Status: Success
+Quality: 85
+Version: 1.0
 Fork Reason: N/A
 
-/project
-├── index.html
-├── styles.css
-├── script.js
+/notes
 ├── builder.py
+├── core.html
 ├── data.json
-└── markdown
-    ├── A.md
-    ├── B.md
+├── index.html
+├── README.md
+├── script.js
+├── styles.css
+├── markdown
+│   └── example.md
+└── html
+    └── example.html
 
 => =================================================================================================== """
 
-import os, mistune
+import os, mistune, random
+from bs4 import  BeautifulSoup
+from datetime import datetime, timezone
 
 def update_directory(_file = None):
     """Set the current directory to be the folder the of the __file__ provided"""
@@ -44,14 +49,21 @@ markdown_folder: str = "./markdown"
 html_folder: str = "./html"
 
 markdown_filepaths: list[str] = os.listdir(markdown_folder)
-print(f"{markdown_filepaths = }")
-
-# html_filepaths: list[str] = os.listdir(html_folder)
-# print(f"{html_filepaths = }")
 
 # ~ ======================================================================================================
 # ~ Functions
 # ~ ======================================================================================================
+
+def html_escape(text):
+    """HTML escape characters"""
+    escape_table = {
+        "&": "&amp;",
+        '"': "&quot;",
+        "'": "&#39;",
+        ">": "&gt;",
+        "<": "&lt;",
+    }
+    return "".join(escape_table.get(c, c) for c in text)
     
 def remove_front_matter(text: str) -> str:
     """Remove front matter between '---' from a markdown string"""
@@ -79,7 +91,23 @@ def convert(filepath: str) -> None:
     temporary_html: str = mistune.html(temporary_markdown)
 
     # < Replace all instances of HTML &quot with instances of regular double quotes ( " ) for readability
-    temporary_html = temporary_html.replace('&quot;', '"')
+    # temporary_html: str = temporary_html.replace('&quot;', '"')
+
+    # < Date
+    last_modified_time = os.path.getmtime(filepath)
+    last_modified_datetime = datetime.utcfromtimestamp(last_modified_time)
+    time_string = "data-date=\"" + str(last_modified_datetime) + "\""
+
+    # < Tags
+    tags = ["tag1", "tag2", "tag3"]
+    k = random.randint(1, len(tags))
+    tags = random.sample(tags, k)
+    # tags = [html_escape(tag) for tag in tags]
+    tag_string = "data-tags=\"" + " ".join(tags) + "\""
+    print(tag_string)
+
+    # < Encapsulate the HTML in an injection class div element
+    temporary_html: str = f'<div class="injection" {time_string} {tag_string}>\n' + temporary_html + "</div>"
 
     # < Write the temporary HTML string to an .html file with the same name
     filepath: str = filepath.replace(".md", ".html")
@@ -93,34 +121,77 @@ for filepath in markdown_filepaths:
     convert(filepath)
     print(f"Conversion success")
 
-# ~ ======================================================================================================
-# ~ Injection
-# ~ ======================================================================================================
+# ** ======================================================================================================
+# ** Deprecated Injection - Inject Directly to Body of index.html
+# ** ======================================================================================================
+
+# # ~ Read content from core.html
+# with open('core.html', 'r') as core_file:
+#     core_content = core_file.read()
+
+# html_filepaths: list[str] = os.listdir(html_folder)
+
+# soup_core = BeautifulSoup(core_content, 'html.parser')
+
+# def inject(filepath: str, core: BeautifulSoup):
+
+#     # ~ Read content from injection.html
+#     with open(filepath, 'r') as injection_file:
+#         injection_content = injection_file.read()
+
+#     soup_injection = BeautifulSoup(injection_content, 'html.parser')
+
+#     # ~ Find the body tag in the core HTML
+#     body_tag = core.body
+
+#     # ~ Append the contents of the injection HTML to the body tag
+#     body_tag.extend(soup_injection.contents)
+
+# for filepath in html_filepaths:
+#     filepath: str = './html/' + filepath
+#     inject(filepath, soup_core)
+
+# # ~ Write the merged content to index.html
+# with open('index.html', 'w') as index_file:
+#     index_file.write(str(soup_core))
     
-def inject_html_into_index(html_folder, index_file):
-    
-    # Read the content of index.html
-    with open(index_file, 'r') as index_file_content:
-        index_content = index_file_content.read()
+# ~ ======================================================================================================
+# ~ Injection - Injected to 'injection-container' div
+# ~ ======================================================================================================
 
-    # Iterate over HTML files in the html_folder
-    for html_file in os.listdir(html_folder):
-        if html_file.endswith(".html"):
-            html_path = os.path.join(html_folder, html_file)
+# Read content from core.html
+with open('core.html', 'r') as core_file:
+    core_content = core_file.read()
 
-            # Read the content of each HTML file
-            with open(html_path, 'r') as html_file_content:
-                html_content = html_file_content.read()
+html_folder = './html'
+html_filepaths = os.listdir(html_folder)
 
-            # Inject the HTML content into the index.html
-            injection_tag = f"<!-- {html_file} Injection Point -->"
-            index_content = index_content.replace(injection_tag, html_content)
+# Parse core HTML
+soup_core = BeautifulSoup(core_content, 'html.parser')
 
-    # Write the modified content back to index.html
-    with open(index_file, 'w') as updated_index:
-        updated_index.write(index_content)
+# Create a new div element to hold all injections
+container = soup_core.new_tag('div')
+container['class'] = 'injection-container'
 
-# Example usage
-html_folder = "./html_files"
-index_file = "index.html"
-inject_html_into_index(html_folder, index_file)
+def inject(filepath: str, container):
+
+    # Read content from injection.html
+    with open(filepath, 'r') as injection_file:
+        injection_content = injection_file.read()
+
+    soup_injection = BeautifulSoup(injection_content, 'html.parser')
+
+    # Append the contents of the injection HTML to the container div element
+    container.extend(soup_injection.contents)
+  
+for filepath in html_filepaths:
+    filepath = os.path.join(html_folder, filepath)
+    inject(filepath, container)
+
+body_tag = soup_core.body
+body_tag.append(container)
+
+# Write the merged content to index.html
+with open('index.html', 'w') as index_file:
+    # soup_core = soup_core.prettify()
+    index_file.write(str(soup_core))

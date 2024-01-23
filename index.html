@@ -1,61 +1,95 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes</title>
-  <link rel="icon" href="data:,"> <!-- Disable favicon request -->
-  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-  <script src="script.js"></script>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Markdown Site Builder</title>
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+<script src="script.js"></script>
+<link href="styles.css" rel="stylesheet"/>
 </head>
 <body>
-  <!-- Filter buttons -->
-  <div>
-    <button onclick="filterItems('tag1')">Tag 1</button>
-    <button onclick="filterItems('tag2')">Tag 2</button>
-    <button onclick="filterItems('tag3')">Tag 3</button>
-    <button onclick="showAllItems()">Show All</button>
-  </div>
-  
-  <!-- Date range selector -->
-  <div>
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate">
-  
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate">
-  
-    <button onclick="filterByDate()">Filter by Date</button>
-  </div>
-  
-  <!-- Items with tags and dates -->
-  <div class="item" data-tags="tag1 tag2" data-date="2024-01-23 08:00:00">Item 1</div>
-  <div class="item" data-tags="tag2 tag3" data-date="2024-01-24 12:30:00">Item 2</div>
-  <div class="item" data-tags="tag1 tag3" data-date="2024-01-25 15:45:00">Item 3</div>
-  <div class="item" data-tags="tag2" data-date="2024-01-26 09:15:00">Item 4</div>
-  <div class="item" data-tags="tag3" data-date="2024-01-27 18:00:00">Item 5</div>
-  
-  <div>Testing div</div>
+<!-- Filter buttons -->
+<div>
+<button onclick="filterItems('tag1')">Tag 1</button>
+<button onclick="filterItems('tag2')">Tag 2</button>
+<button onclick="filterItems('tag3')">Tag 3</button>
+<button onclick="showAllItems()">Show All</button>
+</div>
+<!-- Date range selector -->
+<div>
+<label for="startDate">Start Date:</label>
+<input id="startDate" type="date"/>
+<label for="endDate">End Date:</label>
+<input id="endDate" type="date"/>
+<button onclick="filterByDate()">Filter by Date</button>
+</div>
+<div class="injection-container"><div class="injection" data-date="2024-01-23 05:22:18" data-tags="tag3 tag2">
+<p>File Structure:</p>
+<pre><code>/your-project-directory
+├── index.html
+├── styles.css
+├── script.js
+├── builder.py
+└── markdown
+    ├── one.md
+    ├── two.md
+    └── three.md
+</code></pre>
+</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="tag1 tag3 tag2">
+<h1>Hiding HTML Elements Dynamically using Javascript and CSS</h1>
+<p>You can hide elements in HTML dynamically using Javascript to set CSS property <code>display</code> of the element to <code>"none"</code> as in <code>item.style.display = "none"</code></p>
+<pre><code class="language-javascript">function filterItems(tag) {
 
-  <div id="markdownContent">
-    <!-- Your Markdown content goes here -->
-    # Hello, *World*!
-    
-    This is a **simple** example using Showdown.
-  </div>
+  // Select all elements with the class "item"
+  const items = document.querySelectorAll(".item");
 
-  <div id="htmlContent"></div>
+  // Iterate over all items
+  items.forEach((item) =&gt; {
 
-  <div id="imported"></div>
+    // Extract tags from item's dataset, stored as a space delimited list
+    const tags = item.dataset.tags.split(" ");
 
-  <a href="tester.html">tester.html</a>
+    // Check if the specified tag is present in the item's tags
+    if (tags.includes(tag)) {
+      item.style.display = "inline-block"; // If yes, display the item
+    } else {
+      item.style.display = "none"; // If not, hide the item
+    }
+  });
+}
+</code></pre>
+<p>In the example above, items are only displayed if one of their tags matches the filtered tag in <code>filterItems(tag)</code>. In this way HTML elements can be hidden from a search bar or button</p>
+</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag3 tag2">
+<h1>Converting Markdown Text to HTML Using Showdown and Javascript</h1>
+<h2>Information About Importing Javascript via CDN / NPM</h2>
+<p>There are multiple ways to import a script in HTML / Javascript, but a simple way is to import it via a content delivery network (CDN) such as <strong>jsDelivr</strong>. The search function for <strong>jsDelivr</strong> can be found <a href="https://www.jsdelivr.com/">here</a>. In simple terms <strong>jsDelivr</strong> pulls packages from the NPM (Node Package Manager) registry, it automatically handles versioning and caching. When you reference a specific version of a package, jsDelivr can serve that version with appropriate caching headers, ensuring that users receive the correct and cached version of the asset.</p>
+<p>The example below imports <code>showdown.min.js</code> before <code>script.js</code> so that <code>script.js</code> can access <strong>Showdown</strong>.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Notes&lt;/title&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"&gt;&lt;/script&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+</code></pre>
+<h2>Using Showdown in Javascript</h2>
+<p>The core of <strong>Showdown</strong> is using <code>converter = new Showdown.converter()</code> to create a converter object and using <code>html = converter.makeHtml(text);</code> to convert markdown strings using the converter object, as with the example below.</p>
+<pre><code class="language-javascript">// Store test markdown string as variable
+var text = "Markdown **rocks**";
 
-  <a href="test_markdown.md">test_markdown.md</a>
+// Store showdown converter object as variable
+var converter = new Showdown.converter();
 
-  <a href="test_markdown.html">test_markdown.html</a>
-
-  <a href="markdown/">markdown folder</a>
-
-</body>
+// Convert markdown to html and store html content as variable
+var html = converter.makeHtml(text);
+</code></pre>
+</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag2 tag3">
+<h1>Heading</h1>
+<p>Text</p>
+</div></div></body>
 </html>

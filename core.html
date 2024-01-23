@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes</title>
-  <link rel="icon" href="data:,"> <!-- Disable favicon request -->
+  <title>Markdown Site Builder</title>
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
   <script src="script.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
   <!-- Filter buttons -->
   <div>
     <button onclick="filterItems('tag1')">Tag 1</button>
@@ -28,34 +28,6 @@
   
     <button onclick="filterByDate()">Filter by Date</button>
   </div>
-  
-  <!-- Items with tags and dates -->
-  <div class="item" data-tags="tag1 tag2" data-date="2024-01-23 08:00:00">Item 1</div>
-  <div class="item" data-tags="tag2 tag3" data-date="2024-01-24 12:30:00">Item 2</div>
-  <div class="item" data-tags="tag1 tag3" data-date="2024-01-25 15:45:00">Item 3</div>
-  <div class="item" data-tags="tag2" data-date="2024-01-26 09:15:00">Item 4</div>
-  <div class="item" data-tags="tag3" data-date="2024-01-27 18:00:00">Item 5</div>
-  
-  <div>Testing div</div>
-
-  <div id="markdownContent">
-    <!-- Your Markdown content goes here -->
-    # Hello, *World*!
     
-    This is a **simple** example using Showdown.
-  </div>
-
-  <div id="htmlContent"></div>
-
-  <div id="imported"></div>
-
-  <a href="tester.html">tester.html</a>
-
-  <a href="test_markdown.md">test_markdown.md</a>
-
-  <a href="test_markdown.html">test_markdown.html</a>
-
-  <a href="markdown/">markdown folder</a>
-
 </body>
 </html>

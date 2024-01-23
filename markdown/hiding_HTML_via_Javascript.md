@@ -26,5 +26,7 @@ function filterItems(tag) {
     } else {
       item.style.display = "none"; // If not, hide the item
     }
+  });
+}
 ```
 In the example above, items are only displayed if one of their tags matches the filtered tag in `filterItems(tag)`. In this way HTML elements can be hidden from a search bar or button
