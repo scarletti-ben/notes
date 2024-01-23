@@ -1,0 +1,26 @@
+<h1>Converting Markdown Text to HTML Using Showdown and Javascript</h1>
+<h2>Information About Importing Javascript via CDN / NPM</h2>
+<p>There are multiple ways to import a script in HTML / Javascript, but a simple way is to import it via a content delivery network (CDN) such as <strong>jsDelivr</strong>. The search function for <strong>jsDelivr</strong> can be found <a href="https://www.jsdelivr.com/">here</a>. In simple terms <strong>jsDelivr</strong> pulls packages from the NPM (Node Package Manager) registry, it automatically handles versioning and caching. When you reference a specific version of a package, jsDelivr can serve that version with appropriate caching headers, ensuring that users receive the correct and cached version of the asset.</p>
+<p>The example below imports <code>showdown.min.js</code> before <code>script.js</code> so that <code>script.js</code> can access <strong>Showdown</strong>.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Notes&lt;/title&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"&gt;&lt;/script&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+</code></pre>
+<h2>Using Showdown in Javascript</h2>
+<p>The core of <strong>Showdown</strong> is using <code>converter = new Showdown.converter()</code> to create a converter object and using <code>html = converter.makeHtml(text);</code> to convert markdown strings using the converter object, as with the example below.</p>
+<pre><code class="language-javascript">// Store test markdown string as variable
+var text = "Markdown **rocks**";
+
+// Store showdown converter object as variable
+var converter = new Showdown.converter();
+
+// Convert markdown to html and store html content as variable
+var html = converter.makeHtml(text);
+</code></pre>
