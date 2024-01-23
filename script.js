@@ -97,6 +97,10 @@ function loadAndRenderMarkdown() {
   fetch(markdownFilePath)
       .then(response => response.text())
       .then(markdownContent => {
+
+          // Log found markdown
+          console.log('Markdown content:', markdownContent);
+
           // Create a Showdown converter instance
           const converter = new showdown.Converter();
 
