@@ -88,8 +88,39 @@ function convertMarkdownToHTML() {
   document.getElementById('htmlContent').innerHTML = htmlContent;
 }
 
+// Function to load and render markdown
+function loadAndRenderMarkdown() {
+  // Path to your markdown file
+  const markdownFilePath = 'markdown/template.md';
+
+  // Fetch the content of the markdown file
+  fetch(markdownFilePath)
+      .then(response => response.text())
+      .then(markdownContent => {
+          // Create a Showdown converter instance
+          const converter = new showdown.Converter();
+
+          // Convert Markdown to HTML
+          const htmlContent = converter.makeHtml(markdownContent);
+
+          // Get the div where you want to insert the HTML
+          const importedDiv = document.getElementById('imported');
+
+          // Set the HTML content of the div
+          importedDiv.innerHTML = htmlContent;
+      })
+      .catch(error => {
+          console.error('Error loading and rendering markdown:', error);
+      });
+}
+
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function () {
+
   // Call the function when the DOM is ready
   convertMarkdownToHTML();
+
+  // Call the function to load and render markdown to <div id="imported"></div>
+  loadAndRenderMarkdown();
+
 });
