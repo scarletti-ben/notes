@@ -26,7 +26,7 @@ Fork Reason: N/A
 
 => =================================================================================================== """
 
-import os, mistune, random
+import os, mistune, random, yaml
 from bs4 import  BeautifulSoup
 from datetime import datetime, timezone
 
@@ -64,19 +64,29 @@ def html_escape(text):
         "<": "&lt;",
     }
     return "".join(escape_table.get(c, c) for c in text)
+
+def extract_tags(content: str) -> list:
+    """Extract YAML tags from front matter content"""
+    try:
+        data = yaml.safe_load(content)
+        tags = data.get('tags', ['untagged']) if isinstance(data, dict) else []
+        return tags
+    except yaml.YAMLError as e:
+        print(f"Error parsing YAML: {e}")
+        return []
     
-def remove_front_matter(text: str) -> str:
-    """Remove front matter between '---' from a markdown string"""
+def separate(text: str) -> tuple[str, str]:
+    """Separate front matter between '---' from a markdown string"""
     sections: list[str] = text.split('---')
     if len(sections) == 1:
-        print('No front matter found')
-        return sections[0]
+        raise UserWarning("No front matter found")
     elif len(sections) == 3:
-        print("Front matter removed")
-        return sections[2]
+        print("Front matter found")
+        return sections[2], sections[1]
     else:
         raise UserWarning("There is an unclosed '---' in the markdown file")
 
+all_tags: set[str] = set()
 def convert(filepath: str) -> None:
     """Create a copy of a Markdown file converted to HTML"""
 
@@ -85,7 +95,7 @@ def convert(filepath: str) -> None:
         temporary_markdown: str = f.read()
 
     # < Remove front matter from the markdown
-    temporary_markdown: str = remove_front_matter(temporary_markdown)
+    temporary_markdown, front_matter = separate(temporary_markdown)
 
     # < Convert the temporary markdown string to a temporary HTML string
     temporary_html: str = mistune.html(temporary_markdown)
@@ -99,11 +109,12 @@ def convert(filepath: str) -> None:
     time_string = "data-date=\"" + str(last_modified_datetime) + "\""
 
     # < Tags
-    tags = ["tag1", "tag2", "tag3"]
-    k = random.randint(1, len(tags))
-    tags = random.sample(tags, k)
+    tags = extract_tags(front_matter)
+    all_tags.update(tags)
+    # k = random.randint(1, len(tags))
+    # tags = random.sample(tags, k)
     # tags = [html_escape(tag) for tag in tags]
-    tag_string = "data-tags=\"" + " ".join(tags) + "\""
+    tag_string = "data-tags=\"" + ",".join(tags) + "\""
     print(tag_string)
 
     # < Encapsulate the HTML in an injection class div element
@@ -121,53 +132,46 @@ for filepath in markdown_filepaths:
     convert(filepath)
     print(f"Conversion success")
 
-# ** ======================================================================================================
-# ** Deprecated Injection - Inject Directly to Body of index.html
-# ** ======================================================================================================
+# ~ ======================================================================================================
+# ~ Add Tag Buttons
+# ~ ======================================================================================================
 
-# # ~ Read content from core.html
-# with open('core.html', 'r') as core_file:
-#     core_content = core_file.read()
+# Read existing HTML file
+with open('core.html', 'r') as f:
+    content = f.read()
 
-# html_filepaths: list[str] = os.listdir(html_folder)
+# Create a BeautifulSoup object
+soup = BeautifulSoup(content, features="html.parser")
 
-# soup_core = BeautifulSoup(core_content, 'html.parser')
+# Find the form element
+form = soup.find('form')
 
-# def inject(filepath: str, core: BeautifulSoup):
+# Find the existing select element within the form
+select_element = form.find('select', id='tagSelector')
 
-#     # ~ Read content from injection.html
-#     with open(filepath, 'r') as injection_file:
-#         injection_content = injection_file.read()
+# Add options for each tag dynamically
+for tag in all_tags:
+    option = soup.new_tag("option", value=tag)
+    option.string = tag
+    select_element.append(option)
 
-#     soup_injection = BeautifulSoup(injection_content, 'html.parser')
+# Write updated HTML content to index.html
+with open('index.html', 'w') as f:
+    f.write(str(soup))
 
-#     # ~ Find the body tag in the core HTML
-#     body_tag = core.body
-
-#     # ~ Append the contents of the injection HTML to the body tag
-#     body_tag.extend(soup_injection.contents)
-
-# for filepath in html_filepaths:
-#     filepath: str = './html/' + filepath
-#     inject(filepath, soup_core)
-
-# # ~ Write the merged content to index.html
-# with open('index.html', 'w') as index_file:
-#     index_file.write(str(soup_core))
-    
 # ~ ======================================================================================================
 # ~ Injection - Injected to 'injection-container' div
 # ~ ======================================================================================================
 
-# Read content from core.html
-with open('core.html', 'r') as core_file:
-    core_content = core_file.read()
+# Read content
+with open('index.html', 'r') as f:
+    content = f.read()
 
 html_folder = './html'
 html_filepaths = os.listdir(html_folder)
 
 # Parse core HTML
-soup_core = BeautifulSoup(core_content, 'html.parser')
+soup_core = BeautifulSoup(content, 'html.parser')
 
 # Create a new div element to hold all injections
 container = soup_core.new_tag('div')

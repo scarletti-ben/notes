@@ -7,18 +7,28 @@
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
   <script src="script.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 <body>
-
   <!-- Filter buttons -->
   <div class="button-container">
 
-    <div>
-      <button onclick="filterItems('tag1')">Tag 1</button>
-      <button onclick="filterItems('tag2')">Tag 2</button>
-      <button onclick="filterItems('tag3')">Tag 3</button>
-      <button onclick="showAllItems()">Show All</button>
-    </div>
+<!-- Tag Selector -->
+<form>
+  <select id="tagSelector" class="chosen-select" data-placeholder="Select Tags" multiple name="tags">
+    <!-- Options will be dynamically added here -->
+  </select>
+  <input type="submit">
+</form>
+
+    <!-- Tag Selector Script -->
+    <script>
+      $(".chosen-select").chosen({
+      no_results_text: "Oops, nothing found!"
+    })
+    </script>
 
     <!-- Date range selector -->
     <div>
