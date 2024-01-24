@@ -69,3 +69,25 @@ function filterBySearch() {
     item.style.display = isMatch ? "inline-block" : "none";
   });
 }
+
+// Function to toggle outlines between solid green and none
+function toggleOutlines() {
+
+  // Select all elements
+  const allElements = document.querySelectorAll('*');
+
+  // Check the state by looking at the outline of the first element
+  const currentState = allElements[0].style.outline;
+
+  // If outlines are currently set, remove them (toggle off)
+  if (currentState && currentState !== 'none') {
+    allElements.forEach((element) => {
+      element.style.outline = 'none';
+    });
+  } else {
+    // If outlines are not set, add them with solid green (toggle on)
+    allElements.forEach((element) => {
+      element.style.outline = '1px solid green';
+    });
+  }
+}
