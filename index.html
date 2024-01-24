@@ -11,6 +11,7 @@
 </head>
 <body>
 <!-- Filter buttons -->
+<div class="button-container">
 <div>
 <button onclick="filterItems('tag1')">Tag 1</button>
 <button onclick="filterItems('tag2')">Tag 2</button>
@@ -25,7 +26,14 @@
 <input id="endDate" type="date"/>
 <button onclick="filterByDate()">Filter by Date</button>
 </div>
-<div class="injection-container"><div class="injection" data-date="2024-01-23 05:22:18" data-tags="tag3 tag2">
+<!-- Search bar -->
+<div>
+<label for="searchBar">Search:</label>
+<input id="searchBar" oninput="filterBySearch()" type="text"/>
+<button onclick="clearSearch()">Clear</button>
+</div>
+</div>
+<div class="injection-container"><div class="injection" data-date="2024-01-23 05:22:18" data-tags="tag1">
 <p>File Structure:</p>
 <pre><code>/your-project-directory
 ├── index.html
@@ -37,7 +45,7 @@
     ├── two.md
     └── three.md
 </code></pre>
-</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="tag1 tag3 tag2">
+</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="tag1">
 <h1>Hiding HTML Elements Dynamically using Javascript and CSS</h1>
 <p>You can hide elements in HTML dynamically using Javascript to set CSS property <code>display</code> of the element to <code>"none"</code> as in <code>item.style.display = "none"</code></p>
 <pre><code class="language-javascript">function filterItems(tag) {
@@ -88,7 +96,7 @@ var converter = new Showdown.converter();
 // Convert markdown to html and store html content as variable
 var html = converter.makeHtml(text);
 </code></pre>
-</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag2 tag3">
+</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag2 tag3 tag1">
 <h1>Heading</h1>
 <p>Text</p>
 </div></div></body>

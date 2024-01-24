@@ -11,23 +11,28 @@
 <body>
 
   <!-- Filter buttons -->
-  <div>
-    <button onclick="filterItems('tag1')">Tag 1</button>
-    <button onclick="filterItems('tag2')">Tag 2</button>
-    <button onclick="filterItems('tag3')">Tag 3</button>
-    <button onclick="showAllItems()">Show All</button>
+  <div class="button-container">
+    <div>
+      <button onclick="filterItems('tag1')">Tag 1</button>
+      <button onclick="filterItems('tag2')">Tag 2</button>
+      <button onclick="filterItems('tag3')">Tag 3</button>
+      <button onclick="showAllItems()">Show All</button>
+    </div>
+    <!-- Date range selector -->
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" type="date" />
+      <label for="endDate">End Date:</label>
+      <input id="endDate" type="date" />
+      <button onclick="filterByDate()">Filter by Date</button>
+    </div>
+    <!-- Search bar -->
+    <div>
+      <label for="searchBar">Search:</label>
+      <input id="searchBar" type="text" oninput="filterBySearch()">
+      <button onclick="clearSearch()">Clear</button>
+    </div>
   </div>
   
-  <!-- Date range selector -->
-  <div>
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate">
-  
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate">
-  
-    <button onclick="filterByDate()">Filter by Date</button>
-  </div>
-    
 </body>
 </html>
