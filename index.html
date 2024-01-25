@@ -8,24 +8,34 @@
 <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 <script src="script.js"></script>
 <link href="styles.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Filter buttons -->
 <div class="button-container">
-<div>
-<button onclick="filterItems('tag1')">Tag 1</button>
-<button onclick="filterItems('tag2')">Tag 2</button>
-<button onclick="filterItems('tag3')">Tag 3</button>
-<button onclick="showAllItems()">Show All</button>
-</div>
+<!-- Tag Selector -->
+<form>
+<select class="chosen-select" data-placeholder="Select Tags" id="tagSelector" multiple="" name="tags">
+<!-- Options will be dynamically added here -->
+<option value="GitHub files">GitHub files</option><option value="GitHub API">GitHub API</option><option value="HTML lists">HTML lists</option><option value="styling">styling</option><option value="HTML links">HTML links</option><option value="markdown to html">markdown to html</option><option value="import">import</option><option value="GitHub">GitHub</option><option value="importing">importing</option><option value="cdn">cdn</option><option value="hidden">hidden</option><option value="hiding">hiding</option><option value="npm">npm</option><option value="imports">imports</option><option value="conversion">conversion</option><option value="html">html</option><option value="GitHub file access">GitHub file access</option><option value="dynamic">dynamic</option><option value="showdown">showdown</option><option value="converter">converter</option><option value="css">css</option><option value="content delivery network">content delivery network</option><option value="javascript">javascript</option><option value="node package manager">node package manager</option><option value="invisible">invisible</option><option value="js">js</option><option value="creating HTML elements">creating HTML elements</option><option value="jsdelivr">jsdelivr</option></select>
+<input type="submit"/>
+</form>
+<!-- Tag Selector Script -->
+<script>
+      $(".chosen-select").chosen({
+      no_results_text: "Oops, nothing found!"
+    })
+    </script>
 <!-- Date range selector -->
 <div>
 <label for="startDate">Start Date:</label>
 <input id="startDate" type="date"/>
 <label for="endDate">End Date:</label>
-<input id="endDate" type="date"/>
+<input id="endDate" type="date">
 <button onclick="filterByDate()">Filter by Date</button>
-</div>
+</input></div>
 <!-- Search bar -->
 <div>
 <input id="searchBar" oninput="filterBySearch()" placeholder="Search.." type="text"/>
@@ -39,7 +49,8 @@
 <input id="outlineCheckbox" onchange="toggleOutlines()" style="vertical-align: middle;" type="checkbox"/>
 </div>
 </div>
-<div class="injection-container"><div class="injection" data-date="2024-01-23 05:22:18" data-tags="tag3 tag2">
+<div class="injection-container"><div class="injection" data-date="2024-01-24 21:33:42.869626" data-tags="">
+<h3>Post Title <a href="">#mytag</a> <a href="">#mytag2</a></h3>
 <p>File Structure:</p>
 <pre><code>/your-project-directory
 ├── index.html
@@ -51,7 +62,55 @@
     ├── two.md
     └── three.md
 </code></pre>
-</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="tag1 tag3">
+</div><div class="injection" data-date="2024-01-24 20:58:07.512637" data-tags="GitHub,GitHub files,GitHub file access,GitHub API,creating HTML elements,HTML links,HTML lists">
+<h1>Accessing GitHub Files Using GitHub API, Including RAW Files</h1>
+<pre><code class="language-javascript">// ~ Constants for generating the URLs
+const username = 'scarletti-ben';
+const repo = 'notes';
+const folderPath = 'markdown';
+const branch = 'main';
+
+const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${folderPath}`; // &lt; Construct GitHub API endpoint
+
+const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/${folderPath}`; // &lt; Construct raw URL
+
+// ~ Fetch the contents of the folder using GitHub API
+fetch(apiUrl)
+
+    .then(response =&gt; response.json()) // &lt; Convert successful promise response to JSON
+
+    // ~ Assign the parsed JSON to the variable 'data' and then process
+    .then(data =&gt; {
+    
+    const markdownFiles = data.filter(item =&gt; item.name.endsWith('.md')); // &lt; Filter out only the names of markdown files
+
+    const htmlList = document.createElement('ul'); // &lt; Create empty unordered list element for html
+    document.body.appendChild(htmlList); // &lt; Add the unordered list to the html body
+
+    // ~ Iterate through the markdown files and create list items
+    markdownFiles.forEach(file =&gt; {
+
+        const list = document.createElement('li'); // &lt; Create an HTML list element
+        const div = document.createElement('div'); // &lt; Create an HTML div element
+        const fileLink = document.createElement('a'); // &lt; Create an HTML link element for the regular file
+        const rawLink = document.createElement('a'); // &lt; Create an HTML link element for the raw file
+        const spacer = document.createTextNode('\u00A0\u00A0\u00A0\u00A0= &gt;\u00A0\u00A0\u00A0\u00A0'); // &lt; Add space between elements
+        fileLink.href = file.html_url; // &lt; Set the URL for the regular file
+        fileLink.textContent = file.name; // &lt; Set the text for the regular file
+        rawLink.href = rawUrl + `/${file.name}`; // &lt; Set the URL for the raw file
+        rawLink.textContent = "[RAW VERSION]"; // &lt; Set the text for the raw file
+        div.appendChild(fileLink); // &lt; Add the link element for the regular file to the div
+        div.appendChild(spacer); // &lt; Add the spacer element to the div
+        div.appendChild(rawLink); // &lt; Add the link element for the raw file to the div
+        list.appendChild(div); // &lt; Add the div element to the list element
+        htmlList.appendChild(list); // &lt; Add the list element to the list
+
+    });
+
+    })
+    .catch(error =&gt; console.error('Error fetching data:', error)); // &lt; Catch errors
+</code></pre>
+</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="hiding,hidden,invisible,dynamic,html,js,javascript,css,styling">
 <h1>Hiding HTML Elements Dynamically using Javascript and CSS</h1>
 <p>You can hide elements in HTML dynamically using Javascript to set CSS property <code>display</code> of the element to <code>"none"</code> as in <code>item.style.display = "none"</code></p>
 <pre><code class="language-javascript">function filterItems(tag) {
@@ -75,7 +134,7 @@
 }
 </code></pre>
 <p>In the example above, items are only displayed if one of their tags matches the filtered tag in <code>filterItems(tag)</code>. In this way HTML elements can be hidden from a search bar or button</p>
-</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag1 tag2">
+</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="showdown,markdown to html,conversion,converter,npm,cdn,jsdelivr,import,imports,importing,html,javascript,content delivery network,node package manager">
 <h1>Converting Markdown Text to HTML Using Showdown and Javascript</h1>
 <h2>Information About Importing Javascript via CDN / NPM</h2>
 <p>There are multiple ways to import a script in HTML / Javascript, but a simple way is to import it via a content delivery network (CDN) such as <strong>jsDelivr</strong>. The search function for <strong>jsDelivr</strong> can be found <a href="https://www.jsdelivr.com/">here</a>. In simple terms <strong>jsDelivr</strong> pulls packages from the NPM (Node Package Manager) registry, it automatically handles versioning and caching. When you reference a specific version of a package, jsDelivr can serve that version with appropriate caching headers, ensuring that users receive the correct and cached version of the asset.</p>
@@ -102,7 +161,7 @@ var converter = new Showdown.converter();
 // Convert markdown to html and store html content as variable
 var html = converter.makeHtml(text);
 </code></pre>
-</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="tag3 tag2">
+</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="">
 <h1>Heading</h1>
 <p>Text</p>
 </div></div></body>

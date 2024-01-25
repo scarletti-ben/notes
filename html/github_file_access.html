@@ -1,0 +1,49 @@
+<div class="injection" data-date="2024-01-24 20:58:07.512637" data-tags="GitHub,GitHub files,GitHub file access,GitHub API,creating HTML elements,HTML links,HTML lists">
+<h1>Accessing GitHub Files Using GitHub API, Including RAW Files</h1>
+<pre><code class="language-javascript">// ~ Constants for generating the URLs
+const username = 'scarletti-ben';
+const repo = 'notes';
+const folderPath = 'markdown';
+const branch = 'main';
+
+const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${folderPath}`; // &lt; Construct GitHub API endpoint
+
+const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/${folderPath}`; // &lt; Construct raw URL
+
+// ~ Fetch the contents of the folder using GitHub API
+fetch(apiUrl)
+
+    .then(response =&gt; response.json()) // &lt; Convert successful promise response to JSON
+
+    // ~ Assign the parsed JSON to the variable 'data' and then process
+    .then(data =&gt; {
+    
+    const markdownFiles = data.filter(item =&gt; item.name.endsWith('.md')); // &lt; Filter out only the names of markdown files
+
+    const htmlList = document.createElement('ul'); // &lt; Create empty unordered list element for html
+    document.body.appendChild(htmlList); // &lt; Add the unordered list to the html body
+
+    // ~ Iterate through the markdown files and create list items
+    markdownFiles.forEach(file =&gt; {
+
+        const list = document.createElement('li'); // &lt; Create an HTML list element
+        const div = document.createElement('div'); // &lt; Create an HTML div element
+        const fileLink = document.createElement('a'); // &lt; Create an HTML link element for the regular file
+        const rawLink = document.createElement('a'); // &lt; Create an HTML link element for the raw file
+        const spacer = document.createTextNode('\u00A0\u00A0\u00A0\u00A0= &gt;\u00A0\u00A0\u00A0\u00A0'); // &lt; Add space between elements
+        fileLink.href = file.html_url; // &lt; Set the URL for the regular file
+        fileLink.textContent = file.name; // &lt; Set the text for the regular file
+        rawLink.href = rawUrl + `/${file.name}`; // &lt; Set the URL for the raw file
+        rawLink.textContent = &quot;[RAW VERSION]&quot;; // &lt; Set the text for the raw file
+        div.appendChild(fileLink); // &lt; Add the link element for the regular file to the div
+        div.appendChild(spacer); // &lt; Add the spacer element to the div
+        div.appendChild(rawLink); // &lt; Add the link element for the raw file to the div
+        list.appendChild(div); // &lt; Add the div element to the list element
+        htmlList.appendChild(list); // &lt; Add the list element to the list
+
+    });
+
+    })
+    .catch(error =&gt; console.error('Error fetching data:', error)); // &lt; Catch errors
+</code></pre>
+</div>
