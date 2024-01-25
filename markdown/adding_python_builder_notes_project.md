@@ -1,3 +1,10 @@
+---
+tags: [
+  files, file system, filesystem
+]
+---
+
+# Simple File Structure Example
 
 File Structure:
 ```

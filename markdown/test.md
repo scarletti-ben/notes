@@ -1,4 +1,45 @@
+---
+tags: [
+    chat GPT, chatgpt
+]
+---
 
+# Conversation with Chat GPT on jQuery in HTML
+
+jQuery is a JavaScript library. jQuery is not a separate programming language; rather, it is a collection of pre-written JavaScript code. It is designed to simplify common tasks in JavaScript, such as DOM manipulation, event handling, AJAX requests, and animation.
+
+- [W3 Tutorial](https://www.w3schools.com/jquery/jquery_syntax.asp)
+
+All jQuery methods should be in a document ready event to prevent jQuery code from running before the document is finished loading
+```javascript
+$(document).ready(function(){
+  // jQuery methods go here...
+});
+```
+
+Modern shorthand for this is below, but either are fine
+```javascript
+$(function(){
+  // jQuery methods go here...
+});
+```
+
+## Basic jQuery Syntax
+
+Basic syntax is: $(selector).action()
+- A $ sign to define/access jQuery
+- A (selector) to "query (or find)" HTML elements
+- A jQuery action() to be performed on the element(s)
+
+### Examples:
+- $(this).hide() - hides the current element.
+- $("p").hide() - hides all <p> elements.
+- $(".test").hide() - hides all elements with class="test".
+- $("#test").hide() - hides the element with id="test".
+
+## Chat GPT Conversation
+
+So my understanding of jQuery in HTML is that you import jQuery to your HTML, then you create an HTML element, then you run jQuery to make that element into a jQuery element, then you attach / map javascript functions to jQuery triggers that the jQuery element outputs
 
 Your understanding is partially correct, but let me clarify the process step by step:
 
@@ -70,3 +111,14 @@ Putting it all together:
 ```
 
 This example demonstrates the basic process of including jQuery, selecting an HTML element, and attaching a function to a specific event (in this case, the click event).
+
+# Inspecting jQuery Events
+
+If you log events and parameters using console.log you can inspect them in depth with dev tools in browser
+
+```javascript
+$('.my_select_box').on('change', function(evt, params) {
+    console.log('Change event:', evt);
+    console.log('Additional parameters:', params);
+    });
+```
