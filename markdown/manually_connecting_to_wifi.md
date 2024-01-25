@@ -73,7 +73,7 @@ After this you can delete the xml file as the connection data is now stored in t
 
 ## Errors
 
-It may give interface errors
+It may give interface errors, below the only difference is to do `netsh wlan add profile filename="C:\...\test.xml" interface="WiFi" user=current` where the interface name was changed to `WiFi`
 
 ```
 C:\WINDOWS\system32>netsh wlan add profile filename="C:\Users\[Username]\Desktop\test.xml" interface="Wi-Fi" user=current
