@@ -69,3 +69,38 @@ Now go back to command prompt and use `netsh wlan add profile filename="C:\...\t
 Then run `netsh wlan connect name="{WiFi-Name}"` with the correct WiFi-Name
 
 After this you can delete the xml file as the connection data is now stored in the windows registry
+
+
+## Errors
+
+It may give interface errors
+
+```
+C:\WINDOWS\system32>netsh wlan add profile filename="C:\Users\[Username]\Desktop\test.xml" interface="Wi-Fi" user=current
+There is no such wireless interface on the system.
+
+C:\WINDOWS\system32>netsh wlan show interfaces
+
+There is 1 interface on the system:
+
+    Name                   : WiFi
+    Description            : [Wireless Adapter Description]
+    GUID                   : [Wireless Adapter GUID]
+    Physical address       : [Wireless Adapter Physical Address]
+    State                  : connected
+    SSID                   : [SSID]
+    BSSID                  : [BSSID]
+    Network type           : Infrastructure
+    Radio type             : [Radio Type]
+    Authentication         : [Authentication Type]
+    Cipher                 : [Cipher Type]
+    Connection mode        : Profile
+    Channel                : [Channel]
+    Receive rate (Mbps)    : [Receive Rate]
+    Transmit rate (Mbps)   : [Transmit Rate]
+    Signal                 : [Signal Strength]
+    Profile                : [Profile Name]
+
+    Hosted network status  : Not available
+
+```
