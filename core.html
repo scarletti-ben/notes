@@ -5,31 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Markdown Site Builder</title>
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-  <script src="script.js"></script>
   <link rel="stylesheet" href="styles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
   <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+  <script src="my_chosen.js"></script>
+  <script src="script.js"></script>
 </head>
 <body>
-  <!-- Filter buttons -->
+
+  <!-- Tag Selector -->
+  <div class="center-div">
+    <form>
+      <select id="selector" class="chosen-select" data-placeholder="Search by tag(s)" multiple name="tags">
+        <!-- Options will be dynamically added here -->
+      </select>
+    </form>
+  </div>
+  
+  <!-- Filter Button Container -->
   <div class="button-container">
-
-<!-- Tag Selector -->
-<form>
-  <select id="tagSelector" class="chosen-select" data-placeholder="Select Tags" multiple name="tags">
-    <!-- Options will be dynamically added here -->
-  </select>
-  <input type="submit">
-</form>
-
-    <!-- Tag Selector Script -->
-    <script>
-      $(".chosen-select").chosen({
-      no_results_text: "Oops, nothing found!"
-    })
-    </script>
-
     <!-- Date range selector -->
     <div>
       <label for="startDate">Start Date:</label>
@@ -56,6 +51,13 @@
 
   </div>
 
+  <!-- Event Listener for DOMContentLoaded -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      initialiseChosen("selector", "container");
+      console.log("Chosen initialized")
+    });
+  </script>
   
 </body>
 </html>

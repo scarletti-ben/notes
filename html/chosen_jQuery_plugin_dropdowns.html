@@ -1,0 +1,57 @@
+<div class="injection" data-date="2024-01-26 01:55:52" data-tags="">
+<h1>Heading</h1>
+<ul>
+<li><a href="https://harvesthq.github.io/chosen/">Main Page</a></li>
+<li><a href="https://harvesthq.github.io/chosen/options.html">Other Options</a></li>
+</ul>
+<pre><code class="language-html">
+&lt;!-- &quot;Chosen&quot; placeholder text with placeholder text and multiple selects enabled --&gt;
+&lt;select class=&quot;my_select_box&quot; data-placeholder=&quot;Select Your Options&quot; multiple&gt;
+    &lt;!-- Option 1 without special attributes --&gt;
+    &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;!-- Option 2 is initially selected --&gt;
+    &lt;option value=&quot;2&quot; selected&gt;Option 2&lt;/option&gt;
+    &lt;!-- Option 3 is disabled and cannot be selected --&gt;
+    &lt;option value=&quot;3&quot; disabled&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;
+
+</code></pre>
+<pre><code class="language-javascript">// Event handler for the 'change' event
+$('.my_select_box').on('change', function(evt, params) {
+    // 'do_something' function is called when a selection is made
+    do_something(evt, params);
+});
+
+// Event handler for the 'chosen:ready' event
+$('.my_select_box').on('chosen:ready', function(evt, chosen) {
+    // 'chosen:ready' event is triggered after Chosen has been fully instantiated
+    console.log('Chosen is ready:', chosen);
+});
+
+// Event handler for the 'chosen:maxselected' event
+$('.my_select_box').on('chosen:maxselected', function(evt, chosen) {
+    // 'chosen:maxselected' event is triggered if max_selected_options is set and that total is broken
+    console.log('Max selected options reached:', chosen);
+});
+
+// Event handler for the 'chosen:showing_dropdown' event
+$('.my_select_box').on('chosen:showing_dropdown', function(evt, chosen) {
+    // 'chosen:showing_dropdown' event is triggered when Chosen’s dropdown is opened
+    console.log('Dropdown is showing:', chosen);
+});
+
+// Event handler for the 'chosen:hiding_dropdown' event
+$('.my_select_box').on('chosen:hiding_dropdown', function(evt, chosen) {
+    // 'chosen:hiding_dropdown' event is triggered when Chosen’s dropdown is closed
+    console.log('Dropdown is hiding:', chosen);
+});
+
+// Event handler for the 'chosen:no_results' event
+$('.my_select_box').on('chosen:no_results', function(evt, chosen) {
+    // 'chosen:no_results' event is triggered when a search returns no matching results
+    console.log('No matching results found:', chosen);
+});
+
+
+</code></pre>
+</div>

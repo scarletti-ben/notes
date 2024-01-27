@@ -6,36 +6,32 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Markdown Site Builder</title>
 <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-<script src="script.js"></script>
 <link href="styles.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+<script src="my_chosen.js"></script>
+<script src="script.js"></script>
 </head>
 <body>
-<!-- Filter buttons -->
-<div class="button-container">
 <!-- Tag Selector -->
+<div class="center-div">
 <form>
-<select class="chosen-select" data-placeholder="Select Tags" id="tagSelector" multiple="" name="tags">
+<select class="chosen-select" data-placeholder="Search by tag(s)" id="selector" multiple="" name="tags">
 <!-- Options will be dynamically added here -->
-<option value="GitHub files">GitHub files</option><option value="GitHub API">GitHub API</option><option value="HTML lists">HTML lists</option><option value="styling">styling</option><option value="HTML links">HTML links</option><option value="markdown to html">markdown to html</option><option value="import">import</option><option value="GitHub">GitHub</option><option value="importing">importing</option><option value="cdn">cdn</option><option value="hidden">hidden</option><option value="hiding">hiding</option><option value="npm">npm</option><option value="imports">imports</option><option value="conversion">conversion</option><option value="html">html</option><option value="GitHub file access">GitHub file access</option><option value="dynamic">dynamic</option><option value="showdown">showdown</option><option value="converter">converter</option><option value="css">css</option><option value="content delivery network">content delivery network</option><option value="javascript">javascript</option><option value="node package manager">node package manager</option><option value="invisible">invisible</option><option value="js">js</option><option value="creating HTML elements">creating HTML elements</option><option value="jsdelivr">jsdelivr</option></select>
-<input type="submit"/>
+<option value="css">css</option><option value="converter">converter</option><option value="shell">shell</option><option value="markdown to html">markdown to html</option><option value="GitHub file access">GitHub file access</option><option value="creating HTML elements">creating HTML elements</option><option value="cmd">cmd</option><option value="conversion">conversion</option><option value="HTML lists">HTML lists</option><option value="showdown">showdown</option><option value="import">import</option><option value="imports">imports</option><option value="command prompt">command prompt</option><option value="node package manager">node package manager</option><option value="Wi-Fi">Wi-Fi</option><option value="filesystem">filesystem</option><option value="importing">importing</option><option value="jsdelivr">jsdelivr</option><option value="chatgpt">chatgpt</option><option value="GitHub files">GitHub files</option><option value="wifi">wifi</option><option value="chat GPT">chat GPT</option><option value="GitHub">GitHub</option><option value="hidden">hidden</option><option value="hiding">hiding</option><option value="file system">file system</option><option value="cdn">cdn</option><option value="javascript">javascript</option><option value="content delivery network">content delivery network</option><option value="dynamic">dynamic</option><option value="files">files</option><option value="HTML links">HTML links</option><option value="html">html</option><option value="styling">styling</option><option value="js">js</option><option value="GitHub API">GitHub API</option><option value="invisible">invisible</option><option value="npm">npm</option></select>
 </form>
-<!-- Tag Selector Script -->
-<script>
-      $(".chosen-select").chosen({
-      no_results_text: "Oops, nothing found!"
-    })
-    </script>
+</div>
+<!-- Filter Button Container -->
+<div class="button-container">
 <!-- Date range selector -->
 <div>
 <label for="startDate">Start Date:</label>
 <input id="startDate" type="date"/>
 <label for="endDate">End Date:</label>
-<input id="endDate" type="date">
+<input id="endDate" type="date"/>
 <button onclick="filterByDate()">Filter by Date</button>
-</input></div>
+</div>
 <!-- Search bar -->
 <div>
 <input id="searchBar" oninput="filterBySearch()" placeholder="Search.." type="text"/>
@@ -49,8 +45,15 @@
 <input id="outlineCheckbox" onchange="toggleOutlines()" style="vertical-align: middle;" type="checkbox"/>
 </div>
 </div>
-<div class="injection-container"><div class="injection" data-date="2024-01-24 21:33:42.869626" data-tags="">
-<h3>Post Title <a href="">#mytag</a> <a href="">#mytag2</a></h3>
+<!-- Event Listener for DOMContentLoaded -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      initialiseChosen("selector", "container");
+      console.log("Chosen initialized")
+    });
+  </script>
+<div class="injection-container" id="container"><div class="injection" data-date="2024-01-25 05:08:54" data-tags="files,file system,filesystem">
+<h1>Simple File Structure Example</h1>
 <p>File Structure:</p>
 <pre><code>/your-project-directory
 ├── index.html
@@ -62,7 +65,7 @@
     ├── two.md
     └── three.md
 </code></pre>
-</div><div class="injection" data-date="2024-01-24 20:58:07.512637" data-tags="GitHub,GitHub files,GitHub file access,GitHub API,creating HTML elements,HTML links,HTML lists">
+</div><div class="injection" data-date="2024-01-25 05:08:06" data-tags="GitHub,GitHub files,GitHub file access,GitHub API,creating HTML elements,HTML links,HTML lists">
 <h1>Accessing GitHub Files Using GitHub API, Including RAW Files</h1>
 <pre><code class="language-javascript">// ~ Constants for generating the URLs
 const username = 'scarletti-ben';
@@ -110,7 +113,7 @@ fetch(apiUrl)
     })
     .catch(error =&gt; console.error('Error fetching data:', error)); // &lt; Catch errors
 </code></pre>
-</div><div class="injection" data-date="2024-01-23 23:32:58" data-tags="hiding,hidden,invisible,dynamic,html,js,javascript,css,styling">
+</div><div class="injection" data-date="2024-01-24 06:33:16" data-tags="hiding,hidden,invisible,dynamic,html,js,javascript,css,styling">
 <h1>Hiding HTML Elements Dynamically using Javascript and CSS</h1>
 <p>You can hide elements in HTML dynamically using Javascript to set CSS property <code>display</code> of the element to <code>"none"</code> as in <code>item.style.display = "none"</code></p>
 <pre><code class="language-javascript">function filterItems(tag) {
@@ -134,7 +137,7 @@ fetch(apiUrl)
 }
 </code></pre>
 <p>In the example above, items are only displayed if one of their tags matches the filtered tag in <code>filterItems(tag)</code>. In this way HTML elements can be hidden from a search bar or button</p>
-</div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="showdown,markdown to html,conversion,converter,npm,cdn,jsdelivr,import,imports,importing,html,javascript,content delivery network,node package manager">
+</div><div class="injection" data-date="2024-01-23 01:48:46" data-tags="showdown,markdown to html,conversion,converter,npm,cdn,jsdelivr,import,imports,importing,html,javascript,content delivery network,node package manager">
 <h1>Converting Markdown Text to HTML Using Showdown and Javascript</h1>
 <h2>Information About Importing Javascript via CDN / NPM</h2>
 <p>There are multiple ways to import a script in HTML / Javascript, but a simple way is to import it via a content delivery network (CDN) such as <strong>jsDelivr</strong>. The search function for <strong>jsDelivr</strong> can be found <a href="https://www.jsdelivr.com/">here</a>. In simple terms <strong>jsDelivr</strong> pulls packages from the NPM (Node Package Manager) registry, it automatically handles versioning and caching. When you reference a specific version of a package, jsDelivr can serve that version with appropriate caching headers, ensuring that users receive the correct and cached version of the asset.</p>
@@ -164,5 +167,293 @@ var html = converter.makeHtml(text);
 </div><div class="injection" data-date="2024-01-23 04:13:18" data-tags="">
 <h1>Heading</h1>
 <p>Text</p>
+</div><div class="injection" data-date="2024-01-23 01:14:34" data-tags="">
+<h1>Heading</h1>
+<p>Text</p>
+</div><div class="injection" data-date="2024-01-25 02:46:58" data-tags="chat GPT,chatgpt">
+<h1>Conversation with Chat GPT on jQuery in HTML</h1>
+<p>jQuery is a JavaScript library. jQuery is not a separate programming language; rather, it is a collection of pre-written JavaScript code. It is designed to simplify common tasks in JavaScript, such as DOM manipulation, event handling, AJAX requests, and animation.</p>
+<ul>
+<li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp">W3 Tutorial</a></li>
+</ul>
+<p>All jQuery methods should be in a document ready event to prevent jQuery code from running before the document is finished loading</p>
+<pre><code class="language-javascript">$(document).ready(function(){
+  // jQuery methods go here...
+});
+</code></pre>
+<p>Modern shorthand for this is below, but either are fine</p>
+<pre><code class="language-javascript">$(function(){
+  // jQuery methods go here...
+});
+</code></pre>
+<h2>Basic jQuery Syntax</h2>
+<p>Basic syntax is: $(selector).action()</p>
+<ul>
+<li>A $ sign to define/access jQuery</li>
+<li>A (selector) to "query (or find)" HTML elements</li>
+<li>A jQuery action() to be performed on the element(s)</li>
+</ul>
+<h3>Examples:</h3>
+<ul>
+<li>$(this).hide() - hides the current element.</li>
+<li>$("p").hide() - hides all <p> elements.</p></li>
+<li>$(".test").hide() - hides all elements with class="test".</li>
+<li>$("#test").hide() - hides the element with id="test".</li>
+</ul>
+<h2>Chat GPT Conversation</h2>
+<p>So my understanding of jQuery in HTML is that you import jQuery to your HTML, then you create an HTML element, then you run jQuery to make that element into a jQuery element, then you attach / map javascript functions to jQuery triggers that the jQuery element outputs</p>
+<p>Your understanding is partially correct, but let me clarify the process step by step:</p>
+<ol>
+<li><p><strong>Include jQuery:</strong></p>
+<ul>
+<li><p>You start by including the jQuery library in your HTML file. You can either download the jQuery file and include it locally or use a content delivery network (CDN) to include it. Here is an example using a CDN:</p>
+<pre><code class="language-html">&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Create HTML Element:</strong></p>
+<ul>
+<li><p>Create an HTML element that you want to manipulate using jQuery. This can be any HTML element such as a div, button, input, etc.</p>
+<pre><code class="language-html">&lt;button id="myButton"&gt;Click me&lt;/button&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Use jQuery Selector to Target Element:</strong></p>
+<ul>
+<li><p>Use a jQuery selector to target the HTML element. The selector syntax is similar to CSS selectors. In this case, we're selecting the button with the id "myButton."</p>
+<pre><code class="language-javascript">$(document).ready(function() {
+  var $myButton = $('#myButton');
+});
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Attach jQuery Functions:</strong></p>
+<ul>
+<li><p>Once you have the jQuery object representing your HTML element, you can attach jQuery functions to it. These functions will be executed when certain events occur. For example, you might want to execute some code when the button is clicked.</p>
+<pre><code class="language-javascript">$(document).ready(function() {
+  var $myButton = $('#myButton');
+
+  $myButton.click(function() {
+    // Your code to be executed when the button is clicked
+    alert('Button clicked!');
+  });
+});
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Document Ready:</strong></p>
+<ul>
+<li>It's a good practice to encapsulate your jQuery code inside <code>$(document).ready()</code> or the shorthand <code>$(function() {...})</code> to ensure that the DOM has fully loaded before executing your jQuery code.</li>
+</ul>
+</li>
+</ol>
+<p>Putting it all together:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;jQuery Example&lt;/title&gt;
+  &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    $(document).ready(function() {
+      var $myButton = $('#myButton');
+
+      $myButton.click(function() {
+        // Your code to be executed when the button is clicked
+        alert('Button clicked!');
+      });
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id="myButton"&gt;Click me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>This example demonstrates the basic process of including jQuery, selecting an HTML element, and attaching a function to a specific event (in this case, the click event).</p>
+<h1>Inspecting jQuery Events</h1>
+<p>If you log events and parameters using console.log you can inspect them in depth with dev tools in browser</p>
+<pre><code class="language-javascript">$('.my_select_box').on('change', function(evt, params) {
+    console.log('Change event:', evt);
+    console.log('Additional parameters:', params);
+    });
+</code></pre>
+</div><div class="injection" data-date="2024-01-25 08:28:44" data-tags="command prompt,cmd,shell,Wi-Fi,wifi">
+<h1>Manually Connecting to WiFi Network via Command Prompt (CMD)</h1>
+<p>Used when encountering the error <code>windows cannot get the network settings from the router</code></p>
+<p>First open command prompt and use <code>netsh wlan show networks</code> to get a list of all available networks</p>
+<pre><code>C:\Users\...\folder&gt;netsh wlan show networks
+
+Interface name : Wi-Fi
+There are 3 networks currently visible.
+
+SSID 1 : WiFi-Name
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+
+SSID 2 : WiFi-Name-5G
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+
+SSID 3 : Optus_AC3BEB
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+</code></pre>
+<p>Then open a note editor and create an XML profile file eg. <code>C:\...\test.xml</code>, updating the {WiFi-Name} and {PASSWORD-OR-NUMBER} and then note the file path</p>
+<pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"&gt;
+    &lt;name&gt;{WiFi-Name}&lt;/name&gt;
+    &lt;SSIDConfig&gt;
+        &lt;SSID&gt;
+            &lt;hex&gt;576946692D3543393431315F455854&lt;/hex&gt;
+            &lt;name&gt;{WiFi-Name}&lt;/name&gt;
+        &lt;/SSID&gt;
+    &lt;/SSIDConfig&gt;
+    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+    &lt;connectionMode&gt;manual&lt;/connectionMode&gt;
+    &lt;MSM&gt;
+        &lt;security&gt;
+            &lt;authEncryption&gt;
+                &lt;authentication&gt;WPA2PSK&lt;/authentication&gt;
+                &lt;encryption&gt;AES&lt;/encryption&gt;
+                &lt;useOneX&gt;false&lt;/useOneX&gt;
+            &lt;/authEncryption&gt;
+            &lt;sharedKey&gt;
+                &lt;keyType&gt;passPhrase&lt;/keyType&gt;
+                &lt;protected&gt;false&lt;/protected&gt;
+                &lt;keyMaterial&gt;{PASSWORD-OR-NUMBER}&lt;/keyMaterial&gt;
+            &lt;/sharedKey&gt;
+        &lt;/security&gt;
+    &lt;/MSM&gt;
+&lt;/WLANProfile&gt;
+
+</code></pre>
+<p>Now go back to command prompt and use <code>netsh wlan add profile filename="C:\...\test.xml" interface="Wi-Fi" user=current</code>, using the filepath to the XML profile file you made</p>
+<p>Then run <code>netsh wlan connect name="{WiFi-Name}"</code> with the correct WiFi-Name</p>
+<p>After this you can delete the xml file as the connection data is now stored in the windows registry</p>
+<h2>Errors</h2>
+<p>It may give interface errors, below the only difference is to do <code>netsh wlan add profile filename="C:\...\test.xml" interface="WiFi" user=current</code> where the interface name was changed to <code>WiFi</code></p>
+<pre><code>C:\WINDOWS\system32&gt;netsh wlan add profile filename="C:\Users\[Username]\Desktop\test.xml" interface="Wi-Fi" user=current
+There is no such wireless interface on the system.
+
+C:\WINDOWS\system32&gt;netsh wlan show interfaces
+
+There is 1 interface on the system:
+
+    Name                   : WiFi
+    Description            : [Wireless Adapter Description]
+    GUID                   : [Wireless Adapter GUID]
+    Physical address       : [Wireless Adapter Physical Address]
+    State                  : connected
+    SSID                   : [SSID]
+    BSSID                  : [BSSID]
+    Network type           : Infrastructure
+    Radio type             : [Radio Type]
+    Authentication         : [Authentication Type]
+    Cipher                 : [Cipher Type]
+    Connection mode        : Profile
+    Channel                : [Channel]
+    Receive rate (Mbps)    : [Receive Rate]
+    Transmit rate (Mbps)   : [Transmit Rate]
+    Signal                 : [Signal Strength]
+    Profile                : [Profile Name]
+
+    Hosted network status  : Not available
+
+</code></pre>
+</div><div class="injection" data-date="2024-01-26 01:28:36" data-tags="">
+<h1>Adding Group Headers within Select Dropdowns</h1>
+<p>You can add categories / groups within a dropdown</p>
+<pre><code class="language-html">&lt;label for="dino-select"&gt;Choose a dinosaur:&lt;/label&gt;
+&lt;select id="dino-select"&gt;
+  &lt;optgroup label="Theropods"&gt;
+    &lt;option&gt;Tyrannosaurus&lt;/option&gt;
+    &lt;option&gt;Velociraptor&lt;/option&gt;
+    &lt;option&gt;Deinonychus&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="Sauropods"&gt;
+    &lt;option&gt;Diplodocus&lt;/option&gt;
+    &lt;option&gt;Saltasaurus&lt;/option&gt;
+    &lt;option&gt;Apatosaurus&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+</code></pre>
+<p><label for="dino-select">Choose a dinosaur:</label>
+<select id="dino-select"></select></p>
+<optgroup label="Theropods">
+<option>Tyrannosaurus</option>
+<option>Velociraptor</option>
+<option>Deinonychus</option>
+</optgroup>
+<optgroup label="Sauropods">
+<option>Diplodocus</option>
+<option>Saltasaurus</option>
+<option>Apatosaurus</option>
+</optgroup>
+
+</div><div class="injection" data-date="2024-01-26 01:55:52" data-tags="">
+<h1>Heading</h1>
+<ul>
+<li><a href="https://harvesthq.github.io/chosen/">Main Page</a></li>
+<li><a href="https://harvesthq.github.io/chosen/options.html">Other Options</a></li>
+</ul>
+<pre><code class="language-html">
+&lt;!-- "Chosen" placeholder text with placeholder text and multiple selects enabled --&gt;
+&lt;select class="my_select_box" data-placeholder="Select Your Options" multiple&gt;
+    &lt;!-- Option 1 without special attributes --&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;!-- Option 2 is initially selected --&gt;
+    &lt;option value="2" selected&gt;Option 2&lt;/option&gt;
+    &lt;!-- Option 3 is disabled and cannot be selected --&gt;
+    &lt;option value="3" disabled&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;
+
+</code></pre>
+<pre><code class="language-javascript">// Event handler for the 'change' event
+$('.my_select_box').on('change', function(evt, params) {
+    // 'do_something' function is called when a selection is made
+    do_something(evt, params);
+});
+
+// Event handler for the 'chosen:ready' event
+$('.my_select_box').on('chosen:ready', function(evt, chosen) {
+    // 'chosen:ready' event is triggered after Chosen has been fully instantiated
+    console.log('Chosen is ready:', chosen);
+});
+
+// Event handler for the 'chosen:maxselected' event
+$('.my_select_box').on('chosen:maxselected', function(evt, chosen) {
+    // 'chosen:maxselected' event is triggered if max_selected_options is set and that total is broken
+    console.log('Max selected options reached:', chosen);
+});
+
+// Event handler for the 'chosen:showing_dropdown' event
+$('.my_select_box').on('chosen:showing_dropdown', function(evt, chosen) {
+    // 'chosen:showing_dropdown' event is triggered when Chosen’s dropdown is opened
+    console.log('Dropdown is showing:', chosen);
+});
+
+// Event handler for the 'chosen:hiding_dropdown' event
+$('.my_select_box').on('chosen:hiding_dropdown', function(evt, chosen) {
+    // 'chosen:hiding_dropdown' event is triggered when Chosen’s dropdown is closed
+    console.log('Dropdown is hiding:', chosen);
+});
+
+// Event handler for the 'chosen:no_results' event
+$('.my_select_box').on('chosen:no_results', function(evt, chosen) {
+    // 'chosen:no_results' event is triggered when a search returns no matching results
+    console.log('No matching results found:', chosen);
+});
+
+
+</code></pre>
 </div></div></body>
 </html>

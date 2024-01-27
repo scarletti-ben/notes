@@ -1,0 +1,87 @@
+<div class="injection" data-date="2024-01-25 08:28:44" data-tags="command prompt,cmd,shell,Wi-Fi,wifi">
+<h1>Manually Connecting to WiFi Network via Command Prompt (CMD)</h1>
+<p>Used when encountering the error <code>windows cannot get the network settings from the router</code></p>
+<p>First open command prompt and use <code>netsh wlan show networks</code> to get a list of all available networks</p>
+<pre><code>C:\Users\...\folder&gt;netsh wlan show networks
+
+Interface name : Wi-Fi
+There are 3 networks currently visible.
+
+SSID 1 : WiFi-Name
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+
+SSID 2 : WiFi-Name-5G
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+
+SSID 3 : Optus_AC3BEB
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+</code></pre>
+<p>Then open a note editor and create an XML profile file eg. <code>C:\...\test.xml</code>, updating the {WiFi-Name} and {PASSWORD-OR-NUMBER} and then note the file path</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;WLANProfile xmlns=&quot;http://www.microsoft.com/networking/WLAN/profile/v1&quot;&gt;
+    &lt;name&gt;{WiFi-Name}&lt;/name&gt;
+    &lt;SSIDConfig&gt;
+        &lt;SSID&gt;
+            &lt;hex&gt;576946692D3543393431315F455854&lt;/hex&gt;
+            &lt;name&gt;{WiFi-Name}&lt;/name&gt;
+        &lt;/SSID&gt;
+    &lt;/SSIDConfig&gt;
+    &lt;connectionType&gt;ESS&lt;/connectionType&gt;
+    &lt;connectionMode&gt;manual&lt;/connectionMode&gt;
+    &lt;MSM&gt;
+        &lt;security&gt;
+            &lt;authEncryption&gt;
+                &lt;authentication&gt;WPA2PSK&lt;/authentication&gt;
+                &lt;encryption&gt;AES&lt;/encryption&gt;
+                &lt;useOneX&gt;false&lt;/useOneX&gt;
+            &lt;/authEncryption&gt;
+            &lt;sharedKey&gt;
+                &lt;keyType&gt;passPhrase&lt;/keyType&gt;
+                &lt;protected&gt;false&lt;/protected&gt;
+                &lt;keyMaterial&gt;{PASSWORD-OR-NUMBER}&lt;/keyMaterial&gt;
+            &lt;/sharedKey&gt;
+        &lt;/security&gt;
+    &lt;/MSM&gt;
+&lt;/WLANProfile&gt;
+
+</code></pre>
+<p>Now go back to command prompt and use <code>netsh wlan add profile filename=&quot;C:\...\test.xml&quot; interface=&quot;Wi-Fi&quot; user=current</code>, using the filepath to the XML profile file you made</p>
+<p>Then run <code>netsh wlan connect name=&quot;{WiFi-Name}&quot;</code> with the correct WiFi-Name</p>
+<p>After this you can delete the xml file as the connection data is now stored in the windows registry</p>
+<h2>Errors</h2>
+<p>It may give interface errors, below the only difference is to do <code>netsh wlan add profile filename=&quot;C:\...\test.xml&quot; interface=&quot;WiFi&quot; user=current</code> where the interface name was changed to <code>WiFi</code></p>
+<pre><code>C:\WINDOWS\system32&gt;netsh wlan add profile filename=&quot;C:\Users\[Username]\Desktop\test.xml&quot; interface=&quot;Wi-Fi&quot; user=current
+There is no such wireless interface on the system.
+
+C:\WINDOWS\system32&gt;netsh wlan show interfaces
+
+There is 1 interface on the system:
+
+    Name                   : WiFi
+    Description            : [Wireless Adapter Description]
+    GUID                   : [Wireless Adapter GUID]
+    Physical address       : [Wireless Adapter Physical Address]
+    State                  : connected
+    SSID                   : [SSID]
+    BSSID                  : [BSSID]
+    Network type           : Infrastructure
+    Radio type             : [Radio Type]
+    Authentication         : [Authentication Type]
+    Cipher                 : [Cipher Type]
+    Connection mode        : Profile
+    Channel                : [Channel]
+    Receive rate (Mbps)    : [Receive Rate]
+    Transmit rate (Mbps)   : [Transmit Rate]
+    Signal                 : [Signal Strength]
+    Profile                : [Profile Name]
+
+    Hosted network status  : Not available
+
+</code></pre>
+</div>

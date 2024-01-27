@@ -1,0 +1,114 @@
+<div class="injection" data-date="2024-01-25 02:46:58" data-tags="chat GPT,chatgpt">
+<h1>Conversation with Chat GPT on jQuery in HTML</h1>
+<p>jQuery is a JavaScript library. jQuery is not a separate programming language; rather, it is a collection of pre-written JavaScript code. It is designed to simplify common tasks in JavaScript, such as DOM manipulation, event handling, AJAX requests, and animation.</p>
+<ul>
+<li><a href="https://www.w3schools.com/jquery/jquery_syntax.asp">W3 Tutorial</a></li>
+</ul>
+<p>All jQuery methods should be in a document ready event to prevent jQuery code from running before the document is finished loading</p>
+<pre><code class="language-javascript">$(document).ready(function(){
+  // jQuery methods go here...
+});
+</code></pre>
+<p>Modern shorthand for this is below, but either are fine</p>
+<pre><code class="language-javascript">$(function(){
+  // jQuery methods go here...
+});
+</code></pre>
+<h2>Basic jQuery Syntax</h2>
+<p>Basic syntax is: $(selector).action()</p>
+<ul>
+<li>A $ sign to define/access jQuery</li>
+<li>A (selector) to &quot;query (or find)&quot; HTML elements</li>
+<li>A jQuery action() to be performed on the element(s)</li>
+</ul>
+<h3>Examples:</h3>
+<ul>
+<li>$(this).hide() - hides the current element.</li>
+<li>$(&quot;p&quot;).hide() - hides all <p> elements.</li>
+<li>$(&quot;.test&quot;).hide() - hides all elements with class=&quot;test&quot;.</li>
+<li>$(&quot;#test&quot;).hide() - hides the element with id=&quot;test&quot;.</li>
+</ul>
+<h2>Chat GPT Conversation</h2>
+<p>So my understanding of jQuery in HTML is that you import jQuery to your HTML, then you create an HTML element, then you run jQuery to make that element into a jQuery element, then you attach / map javascript functions to jQuery triggers that the jQuery element outputs</p>
+<p>Your understanding is partially correct, but let me clarify the process step by step:</p>
+<ol>
+<li><p><strong>Include jQuery:</strong></p>
+<ul>
+<li><p>You start by including the jQuery library in your HTML file. You can either download the jQuery file and include it locally or use a content delivery network (CDN) to include it. Here is an example using a CDN:</p>
+<pre><code class="language-html">&lt;script src=&quot;https://code.jquery.com/jquery-3.6.0.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Create HTML Element:</strong></p>
+<ul>
+<li><p>Create an HTML element that you want to manipulate using jQuery. This can be any HTML element such as a div, button, input, etc.</p>
+<pre><code class="language-html">&lt;button id=&quot;myButton&quot;&gt;Click me&lt;/button&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Use jQuery Selector to Target Element:</strong></p>
+<ul>
+<li><p>Use a jQuery selector to target the HTML element. The selector syntax is similar to CSS selectors. In this case, we're selecting the button with the id &quot;myButton.&quot;</p>
+<pre><code class="language-javascript">$(document).ready(function() {
+  var $myButton = $('#myButton');
+});
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Attach jQuery Functions:</strong></p>
+<ul>
+<li><p>Once you have the jQuery object representing your HTML element, you can attach jQuery functions to it. These functions will be executed when certain events occur. For example, you might want to execute some code when the button is clicked.</p>
+<pre><code class="language-javascript">$(document).ready(function() {
+  var $myButton = $('#myButton');
+
+  $myButton.click(function() {
+    // Your code to be executed when the button is clicked
+    alert('Button clicked!');
+  });
+});
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Document Ready:</strong></p>
+<ul>
+<li>It's a good practice to encapsulate your jQuery code inside <code>$(document).ready()</code> or the shorthand <code>$(function() {...})</code> to ensure that the DOM has fully loaded before executing your jQuery code.</li>
+</ul>
+</li>
+</ol>
+<p>Putting it all together:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;jQuery Example&lt;/title&gt;
+  &lt;script src=&quot;https://code.jquery.com/jquery-3.6.0.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    $(document).ready(function() {
+      var $myButton = $('#myButton');
+
+      $myButton.click(function() {
+        // Your code to be executed when the button is clicked
+        alert('Button clicked!');
+      });
+    });
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id=&quot;myButton&quot;&gt;Click me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>This example demonstrates the basic process of including jQuery, selecting an HTML element, and attaching a function to a specific event (in this case, the click event).</p>
+<h1>Inspecting jQuery Events</h1>
+<p>If you log events and parameters using console.log you can inspect them in depth with dev tools in browser</p>
+<pre><code class="language-javascript">$('.my_select_box').on('change', function(evt, params) {
+    console.log('Change event:', evt);
+    console.log('Additional parameters:', params);
+    });
+</code></pre>
+</div>

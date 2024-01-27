@@ -147,7 +147,7 @@ soup = BeautifulSoup(content, features="html.parser")
 form = soup.find('form')
 
 # Find the existing select element within the form
-select_element = form.find('select', id='tagSelector')
+select_element = form.find('select', id='selector')
 
 # Add options for each tag dynamically
 for tag in all_tags:
@@ -176,6 +176,7 @@ soup_core = BeautifulSoup(content, 'html.parser')
 # Create a new div element to hold all injections
 container = soup_core.new_tag('div')
 container['class'] = 'injection-container'
+container['id'] = 'container'
 
 def inject(filepath: str, container):
 

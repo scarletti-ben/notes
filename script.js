@@ -1,51 +1,13 @@
 
-// Function to filter items by tag
-function filterItems(tag) {
+// ~ ======================================================================================================
+// ~ Imports
+// ~ ======================================================================================================
 
-  console.log("Function called")
+// import { initialiseChosen } from "./my_chosen.js";
 
-  // Select all elements with the class "injection"
-  var items = document.querySelectorAll(".injection");
-
-  // Iterate through each item
-  items.forEach((item) => {
-    // Extract tags from the item's dataset, which is a comma-separated list
-    const tags = item.dataset.tags.split(",");
-    console.log("Tags:", tags);
-
-    // Check if the specified tag is present in the item's tags
-    const isVisible = tags.includes(tag);
-    console.log("Is Visible:", isVisible);
-
-    // Update Chosen state based on visibility
-    const chosen = item.nextElementSibling.chosen;
-    const selectedIndex = chosen.results_data.findIndex(result => result.value === tag);
-
-    if (isVisible && selectedIndex === -1) {
-      // Add the tag to Chosen results
-      chosen.results_data.push({
-        value: tag,
-        text: tag,
-        selected: true
-      });
-
-      // Update Chosen display
-      chosen.result_highlight = null;
-      chosen.winnow_results();
-    } else if (!isVisible && selectedIndex !== -1) {
-      // Remove the tag from Chosen results
-      chosen.results_data.splice(selectedIndex, 1);
-
-      // Update Chosen display
-      chosen.result_clear_highlight();
-      chosen.winnow_results();
-    }
-
-    // Update item display
-    item.style.display = isVisible ? "inline-block" : "none";
-  });
-}
-
+// ~ ======================================================================================================
+// ~ Function
+// ~ ======================================================================================================
 
 // Function to show all items
 function showAllItems() {
@@ -130,14 +92,3 @@ function toggleOutlines() {
     });
   }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Assuming this is where you're adding an event listener to your tag selector
-  document.getElementById('tagSelector').addEventListener('change', function (event) {
-      const selectedTag = event.target.value;
-      console.log("Selected tag:", selectedTag);
-
-      // Call the filterItems function with the selected tag
-      filterItems(selectedTag);
-  });
-});
