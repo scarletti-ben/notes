@@ -5,6 +5,8 @@
 
 # Markdown Site Builder
 
+Access to the site via https://scarletti-ben.github.io/notes or via repository settings
+
 Uses a `builder.py` python file to convert Markdown files / notes to HTML files and then generates `index.html`
 
 - Combines the content of `core.html` with the .html files generated in the conversion process to then build `index.html`
