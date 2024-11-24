@@ -5,11 +5,9 @@ Date: 24/01/2024
 Information:
     Attempt at a python based builder for a static site
     Aims to convert all .md files in ./markdown into .html files in ./html
-    Aims to inject all .html file content into a container within index.html    
+    Aims to inject all .html file contents into a container within index.html    
 Status: Success
-Quality: 85
 Version: 1.0
-Fork Reason: N/A
 
 /notes
 ├── builder.py
